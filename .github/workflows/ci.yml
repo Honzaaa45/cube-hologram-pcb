@@ -1,0 +1,69 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  # Rapide (~30 s) : ne demande pas KiCad, donc tourne sur chaque push.
+  conception:
+    name: Cohérence de la conception
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer ruff
+        run: pip install ruff==0.16.4
+
+      - name: Lint (pyflakes + erreurs de syntaxe)
+        run: ruff check tools/
+
+      - name: Compilation de tous les scripts
+        run: python -m compileall -q tools/
+
+      - name: Validation de la netlist et de la documentation
+        run: python tools/validate.py --no-kicad
+
+  # Lent (~5 min) : installe KiCad 9 et rejoue les vérifications CAO.
+  cao:
+    name: ERC / DRC KiCad 9
+    runs-on: ubuntu-latest
+    env:
+      QT_QPA_PLATFORM: offscreen
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer KiCad 9
+        run: |
+          sudo add-apt-repository --yes ppa:kicad/kicad-9.0-releases
+          sudo apt-get update -qq
+          sudo apt-get install --yes --no-install-recommends \
+            kicad kicad-symbols kicad-footprints
+          kicad-cli --version
+
+      - name: Validation complète (symboles, empreintes, placement)
+        run: python tools/validate.py
+
+      - name: ERC, DRC et parité schéma/PCB
+        run: python tools/check_cad.py
+
+      - name: Publier les rapports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rapports-erc-drc
+          path: hw/*.rpt
+          if-no-files-found: warn
