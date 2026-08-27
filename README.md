@@ -10,12 +10,13 @@
 
 **Carte électronique d'un afficheur holographique de bureau — conçue entièrement par du code, vérifiée automatiquement.**
 
-[![CI](https://github.com/Honzaaa45/cube-hologram-pcb/actions/workflows/ci.yml/badge.svg)](https://github.com/Honzaaa45/cube-hologram-pcb/actions/workflows/ci.yml)
 [![Licence code : MIT](https://img.shields.io/badge/licence%20code-MIT-blue)](LICENSE)
 [![Licence matériel : CERN-OHL-S-2.0](https://img.shields.io/badge/licence%20mat%C3%A9riel-CERN--OHL--S--2.0-orange)](LICENSE-HARDWARE)
 [![KiCad 9](https://img.shields.io/badge/KiCad-9.0-314cb0)](https://www.kicad.org/)
 [![Python 3.9+](https://img.shields.io/badge/Python-3.9%2B-3776ab)](https://www.python.org/)
+[![ERC : 0 erreur](https://img.shields.io/badge/ERC-0%20erreur-brightgreen)](hw/erc.rpt)
 [![DRC : 0 violation](https://img.shields.io/badge/DRC-0%20violation-brightgreen)](hw/drc.rpt)
+[![Parité schéma/PCB : 0 écart](https://img.shields.io/badge/parit%C3%A9%20sch%C3%A9ma%2FPCB-0%20%C3%A9cart-brightgreen)](hw/drc.rpt)
 
 </div>
 
@@ -323,6 +324,12 @@ moyen de démontrer la cohérence, ni de rejouer la conception.
 L'unique avertissement ERC : le pad thermique du MAX98357A est typé « Unspecified » dans la
 bibliothèque KiCad officielle et relié à GND. Le comportement est correct, c'est le typage amont qui
 est imprécis.
+
+**Intégration continue :** le workflow [`.github/workflows/ci.yml`](.github/workflows/ci.yml) rejoue à
+chaque push le lint, la validation de la netlist, puis l'ERC, le DRC et le contrôle de parité sur une
+installation KiCad 9 fraîche. Les commandes qu'il exécute sont exactement `python tools/validate.py`
+et `python tools/check_cad.py` : elles se lancent à l'identique en local, et c'est là qu'ont été
+obtenus les résultats du tableau ci-dessus.
 
 **En cours :** 4 liaisons courtes restent à router à la main, toutes autour du LIS3DH (boîtier LGA-16
 au pas de 0,5 mm) et de son voisinage. Elles sont listées nommément dans
