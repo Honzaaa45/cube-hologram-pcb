@@ -215,6 +215,7 @@ tools/                  chaîne de génération — aucune dépendance externe
   place.py                solveur de placement par relaxation sous contraintes
   router.py               routeur labyrinthe (Dijkstra 8 directions) + couture des plans
   cleanup.py              passe de finition sur les liaisons restantes
+  import_routes.py        recapture dans routes.json le routage fait a la main
   gen_sch.py              produit hw/cube.kicad_sch
   gen_pcb.py              produit hw/cube.kicad_pcb
   gen_project.py          produit le projet KiCad et les tables de bibliothèques
@@ -318,7 +319,7 @@ moyen de démontrer la cohérence, ni de rejouer la conception.
 | Parité schéma ↔ PCB, vérifiée par KiCad | **0 écart** |
 | Placement (contours de courtoisie) | **0 chevauchement**, toutes les pastilles sur la carte |
 | DRC du circuit imprimé | **0 violation** |
-| Routage | **219 / 223 connexions** |
+| Routage | **223 / 223 connexions** |
 | Sorties de fabrication | gerbers 4 couches, perçage, CPL, STEP, rendus, PDF |
 
 L'unique avertissement ERC : le pad thermique du MAX98357A est typé « Unspecified » dans la
@@ -331,9 +332,11 @@ installation KiCad 9 fraîche. Les commandes qu'il exécute sont exactement `pyt
 et `python tools/check_cad.py` : elles se lancent à l'identique en local, et c'est là qu'ont été
 obtenus les résultats du tableau ci-dessus.
 
-**En cours :** 4 liaisons courtes restent à router à la main, toutes autour du LIS3DH (boîtier LGA-16
-au pas de 0,5 mm) et de son voisinage. Elles sont listées nommément dans
-[`docs/CARTE.md`](docs/CARTE.md).
+**Routage terminé.** Les 4 dernières liaisons — autour du LIS3DH, boîtier LGA-16 au pas de 0,5 mm —
+ont été tirées à la main dans Pcbnew, puis réinjectées dans `hw/routes.json` par
+`tools/import_routes.py` : le routage manuel fait désormais partie du pipeline et survit à une
+régénération. Restent 8 avertissements de sérigraphie purement cosmétiques (texte rogné là où il
+croise une pastille ou le bord), sans effet fonctionnel.
 
 **Limites connues — à lire avant de vous en servir :**
 

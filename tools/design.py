@@ -280,6 +280,12 @@ NETS = {
     "ACC_ADDR": [("U5", "7"), ("R19", "1")],
 }
 
+# Elements presents sur la carte mais qui ne se commandent pas : trous de
+# fixation et points de test. Les empreintes KiCad portent deja le drapeau
+# exclude_from_bom, le schema doit dire la meme chose sinon KiCad signale une
+# divergence empreinte/symbole.
+NO_BOM = {"H1", "H2", "H3", "H4", "TP1", "TP2", "TP3", "TP4"}
+
 # Broches volontairement non connectees (drapeau no-connect au schema).
 NO_CONNECT = [
     # GPIO35/36/37 : consommes par la PSRAM octale du N16R8 - INTERDIT d'usage

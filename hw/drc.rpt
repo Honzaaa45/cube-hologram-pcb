@@ -1,25 +1,9 @@
 ** Drc report for cube.kicad_pcb **
-** Created on 2026-08-27T02:08:52+0200 **
+** Created on 2026-08-27T21:09:00+0200 **
 
 ** Found 0 DRC violations **
 
-** Found 4 unconnected pads **
-[unconnected_items]: Connexion manquante entre les éléments
-    Forçage local; error
-    @(112,5000 mm, 104,7250 mm): Pad 8 [+3V3] de U5 sur F.Cu
-    @(112,5000 mm, 102,2750 mm): Pad 14 [+3V3] de U5 sur F.Cu
-[unconnected_items]: Connexion manquante entre les éléments
-    Forçage local; error
-    @(113,0000 mm, 138,1000 mm): Via [+3V3] sur F.Cu - B.Cu
-    @(116,0200 mm, 137,5000 mm): Pad 1 [+3V3] de C9 sur F.Cu
-[unconnected_items]: Connexion manquante entre les éléments
-    Forçage local; error
-    @(100,3000 mm, 100,3000 mm): Zone 'Remplissage masse dessus' [GND] sur F.Cu, priorité 0
-    @(110,7750 mm, 104,5000 mm): Pad 5 [GND] de U5 sur F.Cu
-[unconnected_items]: Connexion manquante entre les éléments
-    Forçage local; error
-    @(116,9800 mm, 137,5000 mm): Pad 2 [GND] de C9 sur F.Cu
-    @(100,3000 mm, 100,3000 mm): Zone 'Remplissage masse dessus' [GND] sur F.Cu, priorité 0
+** Found 0 unconnected pads **
 
 ** Found 0 Footprint errors **
 

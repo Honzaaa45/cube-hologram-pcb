@@ -193,18 +193,7 @@ La puissance reste largement suffisante pour un objet de bureau.
 
 ## Ce qu'il reste a router
 
-Le routage automatique a resolu 219 des 223 connexions. Les liaisons ci-dessous restent a tirer a la main dans Pcbnew : elles font toutes quelques millimetres et se trouvent autour du LIS3DH (pas de 0,5 mm) et de son voisinage immediat, la zone la plus dense de la carte.
-
-| # | D'un cote | De l'autre |
-|---|---|---|
-| 1 | Pad 8 [+3V3] de U5 sur F.Cu | Pad 14 [+3V3] de U5 sur F.Cu |
-| 2 | Via [+3V3] sur F.Cu - B.Cu | Pad 1 [+3V3] de C9 sur F.Cu |
-| 3 | Zone 'Remplissage masse dessus' [GND] sur F.Cu, priorité 0 | Pad 5 [GND] de U5 sur F.Cu |
-| 4 | Pad 2 [GND] de C9 sur F.Cu | Zone 'Remplissage masse dessus' [GND] sur F.Cu, priorité 0 |
-
-Marche a suivre : ouvrir `hw/cube.kicad_pcb`, appuyer sur **B** pour remplir les
-plans, puis router au routeur interactif (**X**). La carte passe le DRC sans
-aucune violation, donc toute erreur qui apparaitrait viendrait de ces ajouts.
+Aucune liaison en attente : la carte est entierement routee.
 
 ## Nomenclature
 

@@ -84,8 +84,10 @@ SKIP_TOP = {Sym("version"), Sym("generator"), Sym("generator_version"),
             Sym("layer"), Sym("property"), Sym("at"), Sym("uuid"), Sym("path")}
 
 
-SILK_SIZE = 0.6
-SILK_THICK = 0.09
+# 0,8 mm est le minimum que JLCPCB garantit lisible ; en dessous le texte
+# peut etre illisible ou simplement pas imprime.
+SILK_SIZE = 0.8
+SILK_THICK = 0.15
 
 
 def place_silk():
@@ -361,16 +363,16 @@ def build():
                        "B.SilkS", 1.4, "silk-title", mirror=True))
     pcb.append(gr_text("GPIO35-37 = PSRAM : NE PAS UTILISER",
                        cx, D.BOARD_Y + D.BOARD_H - 10.6,
-                       "B.SilkS", 0.7, "silk-warn", mirror=True))
+                       "B.SilkS", 0.8, "silk-warn", mirror=True))
     # brochage du connecteur ecran, au dos
     jx, jy, _, _ = D.PCB_PLACE["J2"]
     for i, (pin, sig) in enumerate(D.J2_PINOUT):
         col, row = divmod(i, 7)
         pcb.append(gr_text("%d %s" % (pin, sig),
-                           jx - 12 + col * 13, jy + 8 + row * 1.6,
-                           "B.SilkS", 0.6, "silk-j2-%d" % pin, mirror=True, thick=0.1))
-    pcb.append(gr_text("microSD", 103.0, 117.0, "F.SilkS", 0.7, "silk-sd"))
-    pcb.append(gr_text("USB-C", cx, 143.0, "F.SilkS", 0.7, "silk-usb"))
+                           jx - 13 + col * 14, jy + 8 + row * 1.9,
+                           "B.SilkS", 0.8, "silk-j2-%d" % pin, mirror=True))
+    pcb.append(gr_text("microSD", 103.0, 117.0, "F.SilkS", 0.8, "silk-sd"))
+    pcb.append(gr_text("USB-C", cx, 143.0, "F.SilkS", 0.8, "silk-usb"))
 
     pcb.extend(routing(nets))
     pcb.append([Sym("embedded_fonts"), Sym("no")])
@@ -387,19 +389,26 @@ def routing(nets):
         data = json.load(fh)
     lname = {0: "F.Cu", 1: "B.Cu"}
     out = []
-    for i, (a, b, L, net, w) in enumerate(data["tracks"]):
+    for i, entry in enumerate(data["tracks"]):
+        a, b, L, net, w = entry
+        # L peut etre un index historique (0/1) ou directement un nom de couche,
+        # ce qui permet de conserver une piste tracee sur une couche interne.
+        L = lname[L] if isinstance(L, int) else L
         out.append([Sym("segment"),
                     [Sym("start"), N(a[0]), N(a[1])],
                     [Sym("end"), N(b[0]), N(b[1])],
                     [Sym("width"), N(w)],
-                    [Sym("layer"), lname[L]],
+                    [Sym("layer"), L],
                     [Sym("net"), N(nets[net])],
                     [Sym("uuid"), uid("seg-%d" % i)]])
-    for i, (p, net) in enumerate(data["vias"]):
+    for i, entry in enumerate(data["vias"]):
+        p, net = entry[0], entry[1]
+        size = entry[2] if len(entry) > 2 else 0.5
+        drill = entry[3] if len(entry) > 3 else 0.3
         out.append([Sym("via"),
                     [Sym("at"), N(p[0]), N(p[1])],
-                    [Sym("size"), N(0.5)],
-                    [Sym("drill"), N(0.3)],
+                    [Sym("size"), N(size)],
+                    [Sym("drill"), N(drill)],
                     [Sym("layers"), "F.Cu", "B.Cu"],
                     [Sym("net"), N(nets[net])],
                     [Sym("uuid"), uid("via-%d" % i)]])

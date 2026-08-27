@@ -274,7 +274,7 @@ def build():
              [Sym("at"), Sym("%g" % x), Sym("%g" % y), Sym("0")],
              [Sym("unit"), Sym("1")],
              [Sym("exclude_from_sim"), Sym("no")],
-             [Sym("in_bom"), Sym("yes")],
+             [Sym("in_bom"), Sym("no" if ref in D.NO_BOM else "yes")],
              [Sym("on_board"), Sym("yes")],
              [Sym("dnp"), Sym("yes" if p["dnp"] else "no")],
              [Sym("uuid"), uid("sym-" + ref)]]

@@ -19,11 +19,11 @@ HW = os.path.join(ROOT, "hw")
 SCH = os.path.join(HW, "cube.kicad_sch")
 PCB = os.path.join(HW, "cube.kicad_pcb")
 
-# Etat verifie le 2026-08-26 (voir README, section « Etat verifie »).
+# Etat verifie le 2026-08-27 (voir README, section « Etat verifie »).
 MAX_ERC_ERRORS = 0
 MAX_ERC_WARNINGS = 1      # pad thermique du MAX98357A type « Unspecified » en librairie
 MAX_DRC_VIOLATIONS = 0
-MAX_UNCONNECTED = 4       # liaisons restant a router, listees dans docs/CARTE.md
+MAX_UNCONNECTED = 0       # carte entierement routee depuis le 2026-08-27
 MAX_PARITY = 0
 
 FAILS = []
