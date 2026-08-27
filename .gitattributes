@@ -1,0 +1,24 @@
+# Normalisation : LF dans le depot, quelle que soit la plateforme de travail.
+# Sans cela, un depot cree sous Windows arrive en CRLF sur la CI Linux.
+* text=auto eol=lf
+
+# Fichiers KiCad : du texte, mais on evite toute reecriture surprise.
+*.kicad_sch  text eol=lf
+*.kicad_pcb  text eol=lf
+*.kicad_pro  text eol=lf
+*.kicad_sym  text eol=lf
+*.net        text eol=lf
+*.rpt        text eol=lf
+
+# Binaires : jamais convertis.
+*.png    binary
+*.gif    binary
+*.jpg    binary
+*.pdf    binary
+*.zip    binary
+*.step   binary
+*.stp    binary
+
+# Statistiques de langage GitHub : hw/ et docs/ sont des livrables, pas du code.
+hw/**        linguist-generated=true
+docs/media/** linguist-documentation=true

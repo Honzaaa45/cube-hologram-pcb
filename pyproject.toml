@@ -1,0 +1,15 @@
+# Ce fichier ne sert qu'a configurer les outils : le projet n'est pas un paquet
+# Python installable, c'est une chaine de generation CAO.
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+src = ["tools"]
+
+[tool.ruff.lint]
+# On cible les VRAIS defauts : pyflakes (imports morts, variables non definies,
+# f-strings casses) et les erreurs de syntaxe. Volontairement pas les regles de
+# style : le code emploie le formatage % de bout en bout, ce qui est coherent et
+# lisible pour des chaines courtes. Une regle qu'on ignorerait en masse ne
+# verifie rien.
+select = ["F", "E9"]

@@ -1,0 +1,49 @@
+# --- Python ---------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+
+# --- KiCad : fichiers de session et sauvegardes locales --------------------
+# .kicad_prl memorise l'etat de VOTRE fenetre (couches visibles, zoom) :
+# aucun interet en depot, et source de conflits garantie.
+*.kicad_prl
+*-backups/
+*.kicad_sch-bak
+*.kicad_pcb-bak
+fp-info-cache
+_autosave-*
+*.bak
+*~
+
+# --- Sorties regenerables --------------------------------------------------
+# Les gerbers en vrac font double emploi avec hw/fab/cube-gerbers-jlcpcb.zip.
+hw/fab/gerber/
+# Export de netlist : se regenere en une commande, sert uniquement au controle.
+hw/cube.net
+hw/svg/
+hw/routes.backup.json
+
+# --- Build (aucun pour l'instant, mais on ne sait jamais) ------------------
+node_modules/
+dist/
+build/
+target/
+*.log
+
+# --- Outils et systeme -----------------------------------------------------
+.claude/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Secrets ---------------------------------------------------------------
+# Ce projet n'en utilise aucun, mais la regle reste : jamais de .env en depot.
+.env
+.env.*
+!.env.example
