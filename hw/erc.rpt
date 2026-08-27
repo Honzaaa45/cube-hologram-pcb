@@ -1,0 +1,9 @@
+Rapport ERC (2026-08-27T02:08:32+0200, Encodage UTF8)
+
+***** Feuille /
+[pin_to_pin]: Les pins de type Unspecified et Power input sont connectées
+    ; warning
+    @(273,05 mm, 214,63 mm): Symbol U3 Pin 17 [PAD, Unspecified, Line]
+    @(273,05 mm, 217,17 mm): Symbol #PWR0116 Pin 1 [Power input, Line]
+
+** messages ERC: 1  Erreurs 0  Avertissements 1
